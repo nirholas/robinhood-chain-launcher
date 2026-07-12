@@ -14,15 +14,15 @@
     "3d-logo",
     "autonomous-agent"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": "nirholas (https://x.com/nichxbt)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nirholas/hood-launcher.git"
+    "url": "git+https://github.com/nirholas/robinhood-chain-launcher.git"
   },
-  "homepage": "https://nirholas.github.io/hood-launcher/",
+  "homepage": "https://nirholas.github.io/robinhood-chain-launcher/",
   "bugs": {
-    "url": "https://github.com/nirholas/hood-launcher/issues"
+    "url": "https://github.com/nirholas/robinhood-chain-launcher/issues"
   },
   "type": "module",
   "engines": {
@@ -33,7 +33,8 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "hood-launch": "./dist/cli.js"
+    "hood-launch": "./dist/cli.js",
+    "hood-auto": "./dist/cli-auto.js"
   },
   "exports": {
     ".": {
@@ -48,6 +49,8 @@
     "dist",
     "contracts/HoodToken.json",
     "contracts/HoodToken.sol",
+    "contracts/HoodLPLocker.json",
+    "contracts/HoodLPLocker.sol",
     "README.md",
     "LICENSE"
   ],

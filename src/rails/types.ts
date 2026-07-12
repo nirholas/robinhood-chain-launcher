@@ -6,11 +6,11 @@ export type RailName = 'noxa' | 'odyssey' | 'direct'
 
 /** Social links attached to a launch (all optional). */
 export interface Socials {
-  telegram?: string
-  twitter?: string
-  discord?: string
-  website?: string
-  farcaster?: string
+  telegram?: string | undefined
+  twitter?: string | undefined
+  discord?: string | undefined
+  website?: string | undefined
+  farcaster?: string | undefined
 }
 
 /**
@@ -86,10 +86,10 @@ export interface RailPlan {
   preflight: RailPreflight
 }
 
-/** A single unsigned transaction in a launch plan. */
+/** A single unsigned transaction in a launch plan. `to` is omitted for a contract-creation step. */
 export interface RailStep {
   label: string
-  to: Address
+  to?: Address
   data: Hex
   value: bigint
 }
