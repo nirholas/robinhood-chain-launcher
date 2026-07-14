@@ -239,8 +239,4 @@ tests/         unit/ (network-free, calldata proofs) + live/ (real chain/API cal
 
 ## License
 
-[Apache License 2.0](./LICENSE) © 2026 nirholas.
-
----
-
-Built by [nirholas](https://x.com/nichxbt) · [three.ws](https://three.ws)
+All rights reserved. See [LICENSE](LICENSE).
