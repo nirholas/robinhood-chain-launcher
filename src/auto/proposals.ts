@@ -42,11 +42,17 @@ export class ProposalStore {
 
   private readAll(): Record<string, PendingProposal> {
     if (!existsSync(this.path)) return {}
-    return JSON.parse(readFileSync(this.path, 'utf8')) as Record<string, PendingProposal>
+    const all = JSON.parse(readFileSync(this.path, 'utf8')) as Record<string, PendingProposal>
+    for (const id of Object.keys(all)) all[id] = reviveBigints(all[id] as PendingProposal)
+    return all
   }
 
   private writeAll(all: Record<string, PendingProposal>): void {
-    writeFileSync(this.path, JSON.stringify(all, null, 2), 'utf8')
+    // A rail preflight carries bigint wei amounts and a direct-rail config a
+    // bigint totalSupply; JSON.stringify throws on bigint, so store them as
+    // decimal strings and restore them in readAll().
+    const json = JSON.stringify(all, (_key, value) => (typeof value === 'bigint' ? value.toString() : value), 2)
+    writeFileSync(this.path, json, 'utf8')
   }
 
   create(input: Omit<PendingProposal, 'id' | 'createdAt' | 'status'>): PendingProposal {
@@ -77,5 +83,21 @@ export class ProposalStore {
     if (!proposal) throw new Error(`No proposal with id ${id}`)
     proposal.status = status
     this.writeAll(all)
+  }
+}
+
+/** Restore the bigint fields {@link ProposalStore} wrote as decimal strings. */
+function reviveBigints(proposal: PendingProposal): PendingProposal {
+  const { launchConfig, preflight } = proposal
+  return {
+    ...proposal,
+    launchConfig: launchConfig.direct
+      ? { ...launchConfig, direct: { ...launchConfig.direct, totalSupply: BigInt(launchConfig.direct.totalSupply) } }
+      : launchConfig,
+    preflight: {
+      ...preflight,
+      protocolFeeWei: BigInt(preflight.protocolFeeWei),
+      estimatedValueWei: BigInt(preflight.estimatedValueWei),
+    },
   }
 }

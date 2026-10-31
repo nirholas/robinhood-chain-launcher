@@ -125,8 +125,11 @@ export class AutoScheduler {
 
     this.proposals.updateStatus(id, 'approved')
     try {
-      await this.launcher.launch(proposal.launchConfig, { dryRun: !this.operatorConfig.live })
-      this.proposals.updateStatus(id, this.operatorConfig.live ? 'executed' : 'approved')
+      const outcome = await this.launcher.launch(proposal.launchConfig, { dryRun: !this.operatorConfig.live })
+      // launch() returns without launching (result null) when the rail's
+      // preflight is not ready; that is not an execution.
+      const status = !this.operatorConfig.live ? 'approved' : outcome.result ? 'executed' : 'failed'
+      this.proposals.updateStatus(id, status)
     } catch (err) {
       this.proposals.updateStatus(id, 'failed')
       throw err
