@@ -1,0 +1,21 @@
+{
+  "name": "robinhood-chain-launcher",
+  "owner": {
+    "name": "nirholas"
+  },
+  "description": "Preflight, dry-run and (with approval) launch coins on Robinhood Chain via NOXA, Odyssey or a direct pool, with spend caps.",
+  "plugins": [
+    {
+      "name": "hood-launcher",
+      "source": "./plugins/hood-launcher",
+      "description": "Preflight, dry-run and (with approval) launch coins on Robinhood Chain via NOXA, Odyssey or a direct pool, with spend caps.",
+      "category": "automation",
+      "tags": [
+        "robinhood-chain",
+        "coin-launch",
+        "cli",
+        "agents"
+      ]
+    }
+  ]
+}

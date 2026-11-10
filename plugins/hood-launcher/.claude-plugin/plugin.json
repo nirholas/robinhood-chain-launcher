@@ -1,0 +1,17 @@
+{
+  "name": "hood-launcher",
+  "version": "0.1.0",
+  "description": "Preflight, dry-run and (with approval) launch coins on Robinhood Chain via NOXA, Odyssey or a direct pool, with spend caps.",
+  "author": {
+    "name": "nirholas"
+  },
+  "repository": "https://github.com/nirholas/robinhood-chain-launcher",
+  "homepage": "https://nirholas.github.io/robinhood-chain-launcher/",
+  "keywords": [
+    "robinhood-chain",
+    "coin-launch",
+    "launcher",
+    "cli",
+    "noxa"
+  ]
+}
